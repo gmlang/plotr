@@ -1,0 +1,37 @@
+---
+title: "Specs - plotr"
+author: "Guangming Lang, data scientist @ Cabaceo LLC"
+date: "`r Sys.Date()`"
+output: rmarkdown::tufte_handout
+---
+
+## Specs
+
+1. Visualize the distribution of a variable
+
+* continuous - histogram, QQ plot
+* categorical - barplot of frequencies
+
+2. Visualize relationship between any two variables
+
+* continuous vs. continuous - scatterplot
+* continuous vs. categorical - boxplot
+* categorical vs. categorical - **[mosaic plot](https://www.stat.auckland.ac.nz/~ihaka/120/Lectures/lecture17.pdf)**
+
+3. Visualize relationships amongst 2 continuous and 1 categorical variables
+
+* put the two continuous variable on a scatterplot
+* color the points using the categorical variable
+
+4. Allow users to change scales of both the x-axis and y-axis. 
+
+* comma (default, eg: display 500,000 instead of 500000)
+* log
+* log10
+* log2
+* percent (eg: 35%)
+
+## Remarks
+
+* Use dynamic graphs for the app. No report needed.
+* Useful R packages: **[ggvis](http://ggvis.rstudio.com)**
