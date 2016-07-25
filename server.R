@@ -25,15 +25,28 @@ shinyServer(
                         
                 })
                 
+                output$getPlot <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        #Let's only show numeric columns
+                        actionButton("getPlot", "Plot the variable")
+                })
                 
+                randomVals <- eventReactive(input$getPlot, {
+                        input$var
+                })
                 
                 output$plot <- renderPlot({
-                        sv = input$var
                         dummy=filedata()
+                        sv = randomVals()
                         x <- as.data.frame(dummy[,c(sv)])
                         if (input$plot_type == "Histogram"){
                                 ggplot(filedata(), aes(x)) + 
-                                geom_bar() 
+                                geom_histogram(binwidth = 0.5) 
+                        }else if(input$plot_type == "QQ plot"){
+                                
+                        }else if(input$plot_type == "Barplot of frequency"){
+                                
                         }
                 })
                 
