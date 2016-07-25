@@ -11,8 +11,9 @@ shinyUI(fluidPage(
                           accept=c('text/csv', 'text/comma-separated-values,text/plain')),
                 uiOutput("var"),
                 
+                #select plot type
                 selectInput("plot_type", "Plot Type",
-                            c("Histogram", "QQ plot", "Barplot of frequency")
+                            c("Histogram", "QQ plot", "Barplot of frequencies")
                 ),
                 
                 uiOutput("getPlot")
