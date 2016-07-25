@@ -32,6 +32,7 @@ shinyServer(
                         actionButton("getPlot", "Plot the variable")
                 })
                 
+                #plot button
                 randomVals <- eventReactive(input$getPlot, {
                         input$var
                 })
@@ -39,10 +40,13 @@ shinyServer(
                 output$plot <- renderPlot({
                         dummy=filedata()
                         sv = randomVals()
-                        x <- as.data.frame(dummy[,c(sv)])
+                        xv = as.data.frame(dummy[,c(sv)])
+                        #histogram
                         if (input$plot_type == "Histogram"){
-                                ggplot(filedata(), aes(x)) + 
-                                geom_histogram(binwidth = 0.5) 
+                                ggplot(filedata(), aes(x = xv)) + 
+                                geom_histogram(binwidth = 0.3, fill = "grey")+
+                                geom_vline(aes(xintercept=colMeans(xv, na.r=T)),   # Ignore NA values for mean
+                                          color="red", linetype="dashed", size=1)
                         }else if(input$plot_type == "QQ plot"){
                                 
                         }else if(input$plot_type == "Barplot of frequency"){
