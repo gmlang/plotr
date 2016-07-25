@@ -10,15 +10,20 @@ shinyUI(fluidPage(
                 fileInput('datafile', 'Upload CSV file',
                           accept=c('text/csv', 'text/comma-separated-values,text/plain')),
                 uiOutput("var"),
+                
+                selectInput("plot_type", "Plot Type",
+                            c("Histogram", "QQ plot", "Barplot of frequency")
+                ),
+                
                 uiOutput("getPlot")
                 
         ),
         # Main Panel
         mainPanel(
                 tabsetPanel(type="tab", 
-                            tabPanel("Distribution",plotOutput('plot')),
-                            tabPanel("Two Variables", verbatimTextOutput("")),
-                            tabPanel("Three Variables", tableOutput("")),
+                            tabPanel("One Variable",plotOutput('plot')),
+                            tabPanel("Two Variables", plotOutput("")),
+                            tabPanel("Three Variables", plotOutput("")),
                             tabPanel("Change Scales", plotOutput(""))
                 )
       

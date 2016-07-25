@@ -31,9 +31,10 @@ shinyServer(
                         sv = input$var
                         dummy=filedata()
                         x <- as.data.frame(dummy[,c(sv)])
-                        
-                        ggplot(filedata(), aes(x)) + 
-                        geom_bar() 
+                        if (input$plot_type == "Histogram"){
+                                ggplot(filedata(), aes(x)) + 
+                                geom_bar() 
+                        }
                 })
                 
                 
