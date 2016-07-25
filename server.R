@@ -10,10 +10,12 @@ shinyServer(
                                 # User has not uploaded a file yet
                                 return(NULL)
                         }
-                        read.csv(infile$datapath)
+                        dataframe <- read.csv(infile$datapath)
+                        return(dataframe)
+                        
                 })
                 
-                output$x <- renderUI({
+                output$var <- renderUI({
                         df <-filedata()
                         if (is.null(df)) return(NULL)
                         
@@ -24,9 +26,15 @@ shinyServer(
                 })
                 
                 
+                
                 output$plot <- renderPlot({
-                        ggplot(filedata(), aes(x = EngDispl)) + 
-                        geom_histogram() 
+                        sv = input$var
+                        dummy=filedata()
+                        x <- as.data.frame(dummy[,c(sv)])
+                        
+                        ggplot(filedata(), aes(x)) + 
+                        geom_bar() 
                 })
+                
                 
 })
