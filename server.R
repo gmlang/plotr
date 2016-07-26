@@ -24,12 +24,19 @@ shinyServer(
                         selectInput("var", "Variable:",items)
                         
                 })
-                
+                #plot button
                 output$getPlot <- renderUI({
                         df <-filedata()
                         if (is.null(df)) return(NULL)
-                        #Let's only show numeric columns
                         actionButton("getPlot", "Plot the variable")
+                })
+                #select plot type
+                output$plot_type <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("plot_type", "Plot Type",
+                                     c("Histogram", "QQ plot", "Barplot of frequencies"), 
+                                     selected = NULL)
                 })
                 
                 #plot button
