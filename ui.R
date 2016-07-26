@@ -9,12 +9,11 @@ shinyUI(fluidPage(
       
                 fileInput('datafile', 'Upload CSV file',
                           accept=c('text/csv', 'text/comma-separated-values,text/plain')),
+                #variable
                 uiOutput("var"),
                 
                 #select plot type
-                selectInput("plot_type", "Plot Type",
-                            c("Histogram", "QQ plot", "Barplot of frequencies")
-                ),
+                uiOutput("plot_type"),
                 
                 uiOutput("getPlot")
                 
