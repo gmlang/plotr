@@ -41,18 +41,20 @@ shinyServer(
                         dummy=filedata()
                         sv = randomVals()
                         xv = as.data.frame(dummy[,c(sv)])
-                        frequency = (..count..)/sum(..count..)
                         #Plots
                         if (input$plot_type == "Histogram"){
                                 ggplot(filedata(), aes(x = xv)) + 
                                 geom_histogram(binwidth = 0.3)+
                                 geom_vline(aes(xintercept=colMeans(xv, na.r=T)), 
-                                          color="red", linetype="dashed", size=1)
+                                          color="red", linetype="dashed", size=1)+
+                                xlab(input$var)
                         }else if(input$plot_type == "QQ plot"){
                                 
                         }else if(input$plot_type == "Barplot of frequencies"){
                                 ggplot(filedata(), aes(x = xv)) + 
-                                        geom_bar(aes(y = (..count..)/sum(..count..)))
+                                geom_bar(aes(y = (..count..)/sum(..count..)))+
+                                xlab(input$var)+
+                                ylab("frequency")
                         }
                 })
                 
