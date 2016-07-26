@@ -49,7 +49,11 @@ shinyServer(
                                           color="red", linetype="dashed", size=1)+
                                 xlab(input$var)
                         }else if(input$plot_type == "QQ plot"){
-                                
+                                ggplot(filedata(), aes(sample = xv)) + stat_qq()+
+                                geom_abline(intercept = 0, slope = 1,
+                                            color = "red", linetype = "dashed", 
+                                            size = 1)+
+                                ylab(input$var)
                         }else if(input$plot_type == "Barplot of frequencies"){
                                 ggplot(filedata(), aes(x = xv)) + 
                                 geom_bar(aes(y = (..count..)/sum(..count..)))+
