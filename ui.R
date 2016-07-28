@@ -1,29 +1,32 @@
 library(shiny)
 
 shinyUI(fluidPage(
-          # Header or Title Panel 
-          titlePanel(title = h4("PlotR", align="center")),
-          sidebarLayout(
-            # Sidebar panel
-            sidebarPanel(
-              
-              sliderInput(inputId = "num", 
-                          label = "Choose a number", 
-                          value = 25, min = 1, max = 100)
-              ),
-            
-            # Main Panel
-            mainPanel(
-              tabsetPanel(type="tab", 
-                          tabPanel("Distribution",plotOutput("hist")),
-                          tabPanel("Two Variables", verbatimTextOutput("")),
-                          tabPanel("Three Variables", tableOutput("")),
-                          tabPanel("Change Scales", plotOutput(""))
-                          
-              )
-              
-            )
-            
-          )
-        )  
-)
+        # Header or Title Panel 
+        titlePanel(title = h4("PlotR", align="center")),
+        
+        # Sidebar panel
+        sidebarPanel(
+      
+                fileInput('datafile', 'Upload CSV file',
+                          accept=c('text/csv', 'text/comma-separated-values,text/plain')),
+                #variable
+                uiOutput("var"),
+                
+                #select plot type
+                uiOutput("plot_type"),
+                
+                uiOutput("getPlot")
+                
+        ),
+        # Main Panel
+        mainPanel(
+                tabsetPanel(type="tab", 
+                            tabPanel("One Variable",plotOutput('plot')),
+                            tabPanel("Two Variables", plotOutput("")),
+                            tabPanel("Three Variables", plotOutput("")),
+                            tabPanel("Change Scales", plotOutput(""))
+                )
+      
+        )
+        
+))
