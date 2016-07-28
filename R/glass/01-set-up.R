@@ -8,4 +8,4 @@ str(Glass)
 # separate vars
 yvar = "Type"
 xvars = names(Glass)[names(Glass) != yvar]
-        
+
