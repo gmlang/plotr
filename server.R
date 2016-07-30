@@ -1,5 +1,5 @@
 library(shiny)
-library(ggplot2)
+library(ezplot)
 
 shinyServer(
         function(input, output) {
@@ -45,27 +45,35 @@ shinyServer(
                 })
                 
                 output$plot <- renderPlot({
-                        dummy=filedata()
-                        sv = randomVals()
-                        xv = as.data.frame(dummy[,c(sv)])
+                        data(filedata())
+                        str(filedata())
+                        f = tally1way(filedata())
+                        df = f('EngDispl')
+                        df
                         #Plots
                         if (input$plot_type == "Histogram"){
-                                ggplot(filedata(), aes(x = xv)) + 
+                                ggplot(filedata(), aes(x = xvar)) + 
                                 geom_histogram(binwidth = 0.3)+
-                                geom_vline(aes(xintercept=colMeans(xv, na.r=T)), 
+                                geom_vline(aes(xintercept=colMeans(xvar, na.r=T)), 
                                           color="red", linetype="dashed", size=1)+
                                 xlab(input$var)
                         }else if(input$plot_type == "QQ plot"){
-                                ggplot(filedata(), aes(sample = xv)) + stat_qq()+
+                                ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
                                 geom_abline(intercept = 0, slope = 1,
                                             color = "red", linetype = "dashed", 
                                             size = 1)+
                                 ylab(input$var)
                         }else if(input$plot_type == "Barplot of frequencies"){
-                                ggplot(filedata(), aes(x = xv)) + 
-                                geom_bar(aes(y = (..count..)/sum(..count..)))+
-                                xlab(input$var)+
-                                ylab("frequency")
+                                data(filedata())
+                                str(filedata())
+                                f = tally1way(filedata())
+                                df = f(input$var)
+                                df
+                                title = paste('Frequencies of Each', input$var)
+                                plt = mk_barplot(df)
+                                p = plt(input$var,'pct', fillby=input$var,xlab = input$var, main=title, legend=F)
+                                p = scale_axis(p, scale="comma")
+                                print(p)
                         }
                 })
                 
