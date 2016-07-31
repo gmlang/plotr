@@ -1,5 +1,6 @@
 library(shiny)
 library(ezplot)
+library(ggplot2)
 
 shinyServer(
         function(input, output) {
@@ -15,13 +16,25 @@ shinyServer(
                         
                 })
                 
-                output$var <- renderUI({
+                #output yvar
+                output$yvar <- renderUI({
                         df <-filedata()
                         if (is.null(df)) return(NULL)
                         
                         items=names(df)
                         names(items)=items
-                        selectInput("var", "Variable:",items)
+                        selectInput("yvar", "Response Variable:",items)
+                        
+                })
+                
+                #output xvars
+                output$xvar <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        
+                        items=names(df)
+                        names(items)=items
+                        selectizeInput("xvar", "Explanatory Variables:",items,multiple = TRUE)
                         
                 })
                 
@@ -37,7 +50,8 @@ shinyServer(
                         df <-filedata()
                         if (is.null(df)) return(NULL)
                         radioButtons("plot_type", "Plot Type",
-                                     c("Histogram", "QQ plot", "Barplot of frequencies"), 
+                                     c("Histogram", "QQ plot", "Barplot of frequencies",
+                                       "Scatterplot","Boxplot","Mosaic Plot"), 
                                      selected = NULL)
                 })
                 
@@ -64,33 +78,40 @@ shinyServer(
                 plotInput <- function(){
                         #Plots
                         if (input$plot_type == "Histogram"){
-                                #ggplot(filedata(), aes(x = xvar)) + 
-                                #geom_histogram(binwidth = 0.3)+
-                                #geom_vline(aes(xintercept=colMeans(xvar, na.r=T)), 
-                                 #         color="red", linetype="dashed", size=1)+
-                                #xlab(input$var)
                                 plt = mk_distplot(filedata())
-                                title = paste('Number of',input$var )
-                                p = plt(input$var, binw=0.3, xlab=input$var, main=title,
+                                title = paste('Number of',input$xvar )
+                                p = plt(input$xvar, binw=0.3, xlab=input$xvar, main=title,
                                         add_vline_mean=T, add_vline_median=T)
                                 
                         }else if(input$plot_type == "QQ plot"){
-                                ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
-                                geom_abline(intercept = 0, slope = 1,
-                                            color = "red", linetype = "dashed", 
-                                            size = 1)+
-                                ylab(input$var)
+                                #ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
+                                #geom_abline(intercept = 0, slope = 1,
+                                            #color = "red", linetype = "dashed", 
+                                            #size = 1)+
+                                #ylab(input$xvar)
                         }else if(input$plot_type == "Barplot of frequencies"){
                                 data(filedata())
                                 str(filedata())
                                 f = tally1way(filedata())
-                                df = f(input$var)
+                                df = f(input$xvar)
                                 df
-                                title = paste('Frequencies of Each', input$var)
+                                title = paste('Frequencies of Each', input$xvar)
                                 plt = mk_barplot(df)
-                                p = plt(input$var,'pct', fillby=input$var,xlab = input$var, main=title, legend=F)
+                                p = plt(input$xvar,'pct', fillby=input$xvar,
+                                        xlab = input$xvar, main=title, legend=F)
                                 p = scale_axis(p, scale="comma")
-                                
+                        }else if(input$plot_type == "Scatterplot"){
+                                plt = mk_scatterplot(filedata())
+                                purple = cb_color("reddish_purple")
+                                green = cb_color("bluish_green")
+                                title = paste(input$yvar,'vs', input$xvar)
+                                p = plt(xvar=input$xvar, yvar=input$yvar, xlab=input$xvar,
+                                        ylab=input$yvar, main=title,
+                                        pt_size=1.2, pt_alpha=0.5, add_line=T) # use log10 scale on both axes
+                                p = scale_axis(p, scale="log10") # default is y-axis p = scale_axis(p, axis="x", scale="log10")
+                                p = p + ggplot2::scale_color_manual(values = c(purple, green))
+                                # display plot
+                                print(p)
                         }
                 }
                 

@@ -9,8 +9,12 @@ shinyUI(fluidPage(
       
                 fileInput('datafile', 'Upload CSV file',
                           accept=c('text/csv', 'text/comma-separated-values,text/plain')),
-                #variable
-                uiOutput("var"),
+                
+                #y variables
+                uiOutput("yvar"),
+                
+                #x variables
+                uiOutput("xvar"),
                 
                 #select plot type
                 uiOutput("plot_type"),
