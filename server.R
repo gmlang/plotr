@@ -45,18 +45,18 @@ shinyServer(
                 })
                 
                 output$plot <- renderPlot({
-                        data(filedata())
-                        str(filedata())
-                        f = tally1way(filedata())
-                        df = f('EngDispl')
-                        df
                         #Plots
                         if (input$plot_type == "Histogram"){
-                                ggplot(filedata(), aes(x = xvar)) + 
-                                geom_histogram(binwidth = 0.3)+
-                                geom_vline(aes(xintercept=colMeans(xvar, na.r=T)), 
-                                          color="red", linetype="dashed", size=1)+
-                                xlab(input$var)
+                                #ggplot(filedata(), aes(x = xvar)) + 
+                                #geom_histogram(binwidth = 0.3)+
+                                #geom_vline(aes(xintercept=colMeans(xvar, na.r=T)), 
+                                 #         color="red", linetype="dashed", size=1)+
+                                #xlab(input$var)
+                                plt = mk_distplot(filedata())
+                                title = paste('Number of',input$var )
+                                p = plt(input$var, binw=0.3, xlab=input$var, main=title,
+                                        add_vline_mean=T, add_vline_median=T)
+                                print(p)
                         }else if(input$plot_type == "QQ plot"){
                                 ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
                                 geom_abline(intercept = 0, slope = 1,
