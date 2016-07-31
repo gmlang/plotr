@@ -24,12 +24,14 @@ shinyServer(
                         selectInput("var", "Variable:",items)
                         
                 })
-                #plot button
+                
+                #download
                 output$getPlot <- renderUI({
                         df <-filedata()
                         if (is.null(df)) return(NULL)
-                        actionButton("getPlot", "Plot the variable")
+                        downloadButton('download', 'Download Plot')
                 })
+                
                 #select plot type
                 output$plot_type <- renderUI({
                         df <-filedata()
@@ -39,12 +41,27 @@ shinyServer(
                                      selected = NULL)
                 })
                 
-                #plot button
-                randomVals <- eventReactive(input$getPlot, {
-                        input$var
-                })
+                output$download <- downloadHandler(
+                        filename = function() { paste(input$dataset, '.png', sep='') },
+                        content = function(file) {
+                                ggsave(file, plot = output$plot, device = "png")
+                        }
+                )
+                output$download <- downloadHandler(
+                        filename =  function() {
+                                paste(input$plot_type,".png")
+                        },
+                        content = function(file){
+                                ggsave(file, plot = plotInput(), device = "png")
+                                
+                        } 
+                )
                 
                 output$plot <- renderPlot({
+                        print(plotInput())
+                })
+                
+                plotInput <- function(){
                         #Plots
                         if (input$plot_type == "Histogram"){
                                 #ggplot(filedata(), aes(x = xvar)) + 
@@ -56,7 +73,7 @@ shinyServer(
                                 title = paste('Number of',input$var )
                                 p = plt(input$var, binw=0.3, xlab=input$var, main=title,
                                         add_vline_mean=T, add_vline_median=T)
-                                print(p)
+                                
                         }else if(input$plot_type == "QQ plot"){
                                 ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
                                 geom_abline(intercept = 0, slope = 1,
@@ -73,9 +90,9 @@ shinyServer(
                                 plt = mk_barplot(df)
                                 p = plt(input$var,'pct', fillby=input$var,xlab = input$var, main=title, legend=F)
                                 p = scale_axis(p, scale="comma")
-                                print(p)
+                                
                         }
-                })
+                }
                 
                 
 })
