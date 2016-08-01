@@ -16,21 +16,25 @@ shinyUI(fluidPage(
                 #x variables
                 uiOutput("xvar"),
                 
+                uiOutput("colflag"),
+                
+                #color
+                conditionalPanel(
+                        condition="input.colflag==true",
+                        uiOutput("color")
+                ),
+                
                 #select plot type
                 uiOutput("plot_type"),
+                #change scale
+                uiOutput("scale"),
                 
                 uiOutput("getPlot")
                 
         ),
         # Main Panel
         mainPanel(
-                tabsetPanel(type="tab", 
-                            tabPanel("One Variable",plotOutput('plot')),
-                            tabPanel("Two Variables", plotOutput("")),
-                            tabPanel("Three Variables", plotOutput("")),
-                            tabPanel("Change Scales", plotOutput(""))
-                )
-      
+              plotOutput('plot')
         )
         
 ))

@@ -34,7 +34,27 @@ shinyServer(
                         
                         items=names(df)
                         names(items)=items
-                        selectizeInput("xvar", "Explanatory Variables:",items,multiple = TRUE)
+                        selectizeInput("xvar", "Explanatory Variables:",items, selected = NULL)
+                
+                })
+                
+                output$colflag <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        
+                        checkboxInput("colflag", "Color by", FALSE)
+                })
+                #output color
+                output$color <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        #Let's only show numeric columns
+                        nums <- sapply(df, is.factor)
+                        items=names(nums[nums])
+                        names(items)=items
+                        if(input$plot_type == "Scatterplot"){
+                                selectInput("category", "Category Variable:",items)
+                        }
                         
                 })
                 
@@ -55,6 +75,15 @@ shinyServer(
                                      selected = NULL)
                 })
                 
+                output$scale <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("scale", "Change scale",
+                                     c("comma", "log", "log10",
+                                       "log2","percentage"), 
+                                     selected = NULL)
+                })
+                
                 output$download <- downloadHandler(
                         filename = function() { paste(input$dataset, '.png', sep='') },
                         content = function(file) {
@@ -70,6 +99,7 @@ shinyServer(
                                 
                         } 
                 )
+                
                 
                 output$plot <- renderPlot({
                         print(plotInput())
@@ -89,6 +119,7 @@ shinyServer(
                                             #color = "red", linetype = "dashed", 
                                             #size = 1)+
                                 #ylab(input$xvar)
+                                
                         }else if(input$plot_type == "Barplot of frequencies"){
                                 data(filedata())
                                 str(filedata())
@@ -99,20 +130,30 @@ shinyServer(
                                 plt = mk_barplot(df)
                                 p = plt(input$xvar,'pct', fillby=input$xvar,
                                         xlab = input$xvar, main=title, legend=F)
-                                p = scale_axis(p, scale="comma")
+                                p = scale_axis(p, scale=input$scale)
+                                
                         }else if(input$plot_type == "Scatterplot"){
-                                plt = mk_scatterplot(filedata())
-                                purple = cb_color("reddish_purple")
-                                green = cb_color("bluish_green")
-                                title = paste(input$yvar,'vs', input$xvar)
-                                p = plt(xvar=input$xvar, yvar=input$yvar, xlab=input$xvar,
-                                        ylab=input$yvar, main=title,
-                                        pt_size=1.2, pt_alpha=0.5, add_line=T) # use log10 scale on both axes
-                                p = scale_axis(p, scale="log10") # default is y-axis p = scale_axis(p, axis="x", scale="log10")
-                                p = p + ggplot2::scale_color_manual(values = c(purple, green))
-                                # display plot
+                                p <- ggplot(filedata(), aes_string(x=input$xvar, y=input$yvar)) + geom_point()
+                                
+                                if (input$colflag==TRUE){
+                                        p <- p + aes_string(color=input$category)
+                                }
+                                p <- p + geom_point(size = 3)
+                                
                                 print(p)
-                        }
+                                
+                        }else if(input$plot_type == "Boxplot"){
+                                plt = mk_boxplot(filedata())
+                                title = paste('Distribution of',input$yvar)
+                                p = plt(input$xvar, input$yvar, xlab=input$xvar,ylab=input$yvar,
+                                        main=title, lab_at_top = F,vpos = -0.5, legend=F)
+                                p = scale_axis(p, scale = input$scale)
+                                print(p)
+                                
+                        }else if (input$plot_type == "Mosaic Plot"){
+                                #Mosaic
+                                }
+                        
                 }
                 
                 
