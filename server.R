@@ -75,21 +75,24 @@ shinyServer(
                                      selected = NULL)
                 })
                 
-                output$scale <- renderUI({
+                output$xscale <- renderUI({
                         df <-filedata()
                         if (is.null(df)) return(NULL)
-                        radioButtons("scale", "Change scale",
+                        radioButtons("xscale", "Change X scale",
                                      c("comma", "log", "log10",
                                        "log2","percentage"), 
                                      selected = NULL)
                 })
                 
-                output$download <- downloadHandler(
-                        filename = function() { paste(input$dataset, '.png', sep='') },
-                        content = function(file) {
-                                ggsave(file, plot = output$plot, device = "png")
-                        }
-                )
+                output$yscale <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("yscale", "Change Y scale",
+                                     c("comma", "log", "log10",
+                                       "log2","percentage"), 
+                                     selected = NULL)
+                })
+                
                 output$download <- downloadHandler(
                         filename =  function() {
                                 paste(input$plot_type,".png")
@@ -112,6 +115,7 @@ shinyServer(
                                 title = paste('Number of',input$xvar )
                                 p = plt(input$xvar, binw=0.3, xlab=input$xvar, main=title,
                                         add_vline_mean=T, add_vline_median=T)
+                                p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 
                         }else if(input$plot_type == "QQ plot"){
                                 #ggplot(filedata(), aes(sample = xvar)) + stat_qq()+
@@ -130,7 +134,8 @@ shinyServer(
                                 plt = mk_barplot(df)
                                 p = plt(input$xvar,'pct', fillby=input$xvar,
                                         xlab = input$xvar, main=title, legend=F)
-                                p = scale_axis(p, scale=input$scale)
+                                p = scale_axis(p, scale=input$yscale)
+                                p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 
                         }else if(input$plot_type == "Scatterplot"){
                                 p <- ggplot(filedata(), aes_string(x=input$xvar, y=input$yvar)) + geom_point()
@@ -139,7 +144,8 @@ shinyServer(
                                         p <- p + aes_string(color=input$category)
                                 }
                                 p <- p + geom_point(size = 3)
-                                
+                                p = scale_axis(p, scale = input$yscale)
+                                p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 print(p)
                                 
                         }else if(input$plot_type == "Boxplot"){
@@ -147,7 +153,8 @@ shinyServer(
                                 title = paste('Distribution of',input$yvar)
                                 p = plt(input$xvar, input$yvar, xlab=input$xvar,ylab=input$yvar,
                                         main=title, lab_at_top = F,vpos = -0.5, legend=F)
-                                p = scale_axis(p, scale = input$scale)
+                                p = scale_axis(p, scale = input$yscale)
+                                p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 print(p)
                                 
                         }else if (input$plot_type == "Mosaic Plot"){

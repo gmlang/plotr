@@ -26,8 +26,12 @@ shinyUI(fluidPage(
                 
                 #select plot type
                 uiOutput("plot_type"),
-                #change scale
-                uiOutput("scale"),
+                
+                #change xscale
+                uiOutput("xscale"),
+                
+                #change yscale
+                uiOutput("yscale"),
                 
                 uiOutput("getPlot")
                 
