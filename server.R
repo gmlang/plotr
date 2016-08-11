@@ -131,7 +131,32 @@ shinyServer(
                         downloadButton('download', 'Download Plot')
                 })
               
+                output$scale <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("scale", "Change scale",
+                                     c("comma", "log", "log10",
+                                       "log2","percentage"), 
+                                     selected = NULL)
+                })
                 
+                output$xscale <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("xscale", "Change X scale",
+                                     c("comma", "log", "log10",
+                                       "log2","percentage"), 
+                                     selected = NULL)
+                })
+                
+                output$yscale <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        radioButtons("yscale", "Change Y scale",
+                                     c("comma", "log", "log10",
+                                       "log2","percentage"), 
+                                     selected = NULL)
+                })
                 
                 output$one_variable <- renderPlot({
                         print(plotInput1())
@@ -148,6 +173,7 @@ shinyServer(
                                 title = paste('Number of',input$var )
                                 p = plt(input$var, binw=0.3, xlab=input$var, main=title,
                                         add_vline_mean=T, add_vline_median=T)
+                                p = ezplot::scale_axis(p, "x", scale=input$scale)
                                 
                         }else if(input$plot_type == "QQ plot"){
                                 
@@ -181,6 +207,8 @@ shinyServer(
                                         p <- p + aes_string(color=input$category)
                                 }
                                 p <- p + geom_point(size = 3)
+                                p = scale_axis(p, scale = input$yscale)
+                                p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 
                         }else if (input$plot_type2 == "Mosaic plot"){
                                 #Mosaic

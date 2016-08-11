@@ -21,6 +21,7 @@ shinyUI(navbarPage("PlotR",
                                  #select plot type
                                  uiOutput("plot_type"),
                                  uiOutput("var"),
+                                 uiOutput("scale"),
                                  uiOutput("getPlot")
                          ),
                          mainPanel(
@@ -51,6 +52,12 @@ shinyUI(navbarPage("PlotR",
                                         condition="input.colflag==true",
                                         uiOutput("color")
                                 ),
+                                #change xscale
+                                uiOutput("xscale"),
+                                
+                                #change yscale
+                                uiOutput("yscale"),
+                                
                                 uiOutput("getPlot2")
                         ),
                         mainPanel(
