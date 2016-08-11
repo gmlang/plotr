@@ -107,6 +107,29 @@ shinyServer(
                         }
                 })
                 
+                output$download <- downloadHandler(
+                        filename =  function() {
+                                paste('plotR',".pdf")
+                        },
+                        content = function(file){
+                                pdf(file)
+                                print(plotInput1())
+                                print(plotInput2())
+                                dev.off()
+                        } 
+                )
+                
+                output$getPlot <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        downloadButton('download', 'Download Plot')
+                })
+                
+                output$getPlot2 <- renderUI({
+                        df <-filedata()
+                        if (is.null(df)) return(NULL)
+                        downloadButton('download', 'Download Plot')
+                })
               
                 
                 

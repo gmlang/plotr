@@ -20,7 +20,8 @@ shinyUI(navbarPage("PlotR",
                                                     text/plain')),
                                  #select plot type
                                  uiOutput("plot_type"),
-                                 uiOutput("var")
+                                 uiOutput("var"),
+                                 uiOutput("getPlot")
                          ),
                          mainPanel(
                                  plotOutput('one_variable')
@@ -49,7 +50,8 @@ shinyUI(navbarPage("PlotR",
                                 conditionalPanel(
                                         condition="input.colflag==true",
                                         uiOutput("color")
-                                )
+                                ),
+                                uiOutput("getPlot2")
                         ),
                         mainPanel(
                                 plotOutput('multi_variable')
