@@ -1,44 +1,59 @@
 library(shiny)
+library(markdown)
 
-shinyUI(fluidPage(
-        # Header or Title Panel 
-        titlePanel(title = h4("PlotR", align="center")),
-        
-        # Sidebar panel
-        sidebarPanel(
-      
-                fileInput('datafile', 'Upload CSV file',
-                          accept=c('text/csv', 'text/comma-separated-values,text/plain')),
-                
-                #y variables
-                uiOutput("yvar"),
-                
-                #x variables
-                uiOutput("xvar"),
-                
-                uiOutput("colflag"),
-                
-                #color
-                conditionalPanel(
-                        condition="input.colflag==true",
-                        uiOutput("color")
-                ),
-                
-                #select plot type
-                uiOutput("plot_type"),
-                
-                #change xscale
-                uiOutput("xscale"),
-                
-                #change yscale
-                uiOutput("yscale"),
-                
-                uiOutput("getPlot")
-                
+shinyUI(navbarPage("PlotR",
+       tabPanel("About",
+                fluidRow(
+                        column(6,
+                               includeMarkdown("about.md")
+                        )
+                        
+                )
         ),
-        # Main Panel
-        mainPanel(
-              plotOutput('plot')
-        )
         
+        
+        tabPanel("One Variable",
+                 sidebarLayout(
+                         sidebarPanel(
+                                 fileInput('datafile', 'Upload CSV file',
+                                           accept=c('text/csv', 'text/comma-separated-values,
+                                                    text/plain')),
+                                 #select plot type
+                                 uiOutput("plot_type"),
+                                 uiOutput("var")
+                         ),
+                         mainPanel(
+                                 plotOutput('one_variable')
+                         )
+                 )
+        ),
+       
+       tabPanel("Multiple Variables",
+                sidebarLayout(
+                        sidebarPanel(
+                                
+                                fileInput('datafile', 'Upload CSV file',
+                                          accept=c('text/csv', 'text/comma-separated-values,
+                                                   text/plain')),
+                                
+                                uiOutput("plot_type2"),
+                                #y variables
+                                uiOutput("xvar"),
+                                
+                                #x variables
+                                uiOutput("yvar"),
+                                
+                                uiOutput("colflag"),
+                                
+                                #color
+                                conditionalPanel(
+                                        condition="input.colflag==true",
+                                        uiOutput("color")
+                                )
+                        ),
+                        mainPanel(
+                                plotOutput('multi_variable')
+                        )
+                )
+        )
 ))
