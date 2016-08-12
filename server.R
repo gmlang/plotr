@@ -176,7 +176,24 @@ shinyServer(
                                 p = ezplot::scale_axis(p, "x", scale=input$scale)
                                 
                         }else if(input$plot_type == "QQ plot"){
+                                var_length = length(filedata()[,input$var])
+                                x_thr = qnorm(1:var_length/(1+var_length))
                                 
+                                var_mean = mean(filedata()[,input$var], na.rm=T)
+                                var_sd = sd(filedata()[,input$var], na.rm=T)
+                                var_std = (filedata()[,input$var]-var_mean)/var_sd
+                                y_smpl = sort(var_std)
+                                temp = as.data.frame(cbind(y_smpl,x_thr))
+                          
+                                plt = mk_scatterplot(temp)
+                                p = plt(xvar=x_thr,
+                                       yvar=temp$y_smpl,
+                                       xlab="Theoretical quantiles",
+                                       ylab="Sample quantiles",
+                                       pt_size=1.3)
+                                p = p+ggplot2::geom_abline(intercept=0, slope=1,
+                                                    color="red", linetype="dashed", 
+                                                    size=1)
                                 
                         }else if(input$plot_type == "Barplot"){
                                 data(filedata())
