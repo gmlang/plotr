@@ -4,8 +4,14 @@ library(ggplot2)
 library(reshape2)
 library(plyr)
 
+#Define categorical variable for barplot, mosaic plot, etc.
+is.category=function(x) {
+  if (is.factor(x)==T) {T}
+  else if (nlevels(factor(x))<=10) {T}
+  else {F}
+}
 
-shinyServer(
+shinyServer(      
         function(input, output) {
                 
                 filedata <- reactive({
@@ -45,7 +51,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("var", "Variable:",items)
                         }else if(input$plot_type == "Barplot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("var", "Variable:",items)
@@ -64,7 +70,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("yvar", "Response Variable:",items)
                         }else if(input$plot_type2 == "Mosaic plot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("yvar", "Response Variable:",items)
@@ -83,7 +89,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("xvar", "Explanatory Variables:",items)
                         }else if(input$plot_type2 == "Mosaic plot" || input$plot_type2 =="Boxplot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("xvar", "Explanatory Variables:",items)
