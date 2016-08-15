@@ -1,13 +1,17 @@
 library(shiny)
-library(markdown)
+
+source("R/modules/upload_module.R")
 
 shinyUI(navbarPage("PlotR",
-       tabPanel("About",
-                fluidRow(
-                        column(6,
-                               includeMarkdown("about.md")
-                        )
-                        
+       tabPanel("Upload Data",
+                sidebarLayout(
+                    sidebarPanel(
+                        upload_input("datafile")
+                    ),
+                    mainPanel(
+                        verbatimTextOutput("datastruct"),
+                        dataTableOutput("first100rows")
+                    )
                 )
         ),
         
@@ -15,9 +19,6 @@ shinyUI(navbarPage("PlotR",
         tabPanel("One Variable",
                  sidebarLayout(
                          sidebarPanel(
-                                 fileInput('datafile', 'Upload CSV file',
-                                           accept=c('text/csv', 'text/comma-separated-values,
-                                                    text/plain')),
                                  #select plot type
                                  uiOutput("plot_type"),
                                  uiOutput("var"),
@@ -34,10 +35,7 @@ shinyUI(navbarPage("PlotR",
                 sidebarLayout(
                         sidebarPanel(
                                 
-                                fileInput('datafile', 'Upload CSV file',
-                                          accept=c('text/csv', 'text/comma-separated-values,
-                                                   text/plain')),
-                                
+
                                 uiOutput("plot_type2"),
                                 #y variables
                                 uiOutput("xvar"),
