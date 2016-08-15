@@ -1,8 +1,17 @@
 library(shiny)
 library(ezplot)
 library(ggplot2)
+library(reshape2)
+library(plyr)
 
-shinyServer(
+#Define categorical variable for barplot, mosaic plot, etc.
+is.category=function(x) {
+  if (is.factor(x)==T) {T}
+  else if (nlevels(factor(x))<=10) {T}
+  else {F}
+}
+
+shinyServer(      
         function(input, output) {
                 
                 filedata <- reactive({
@@ -42,7 +51,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("var", "Variable:",items)
                         }else if(input$plot_type == "Barplot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("var", "Variable:",items)
@@ -61,7 +70,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("yvar", "Response Variable:",items)
                         }else if(input$plot_type2 == "Mosaic plot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("yvar", "Response Variable:",items)
@@ -80,7 +89,7 @@ shinyServer(
                                 names(items)=items
                                 selectInput("xvar", "Explanatory Variables:",items)
                         }else if(input$plot_type2 == "Mosaic plot" || input$plot_type2 =="Boxplot"){
-                                nums <- sapply(df, is.factor)
+                                nums <- sapply(df, is.category)
                                 items=names(nums[nums])
                                 names(items)=items
                                 selectInput("xvar", "Explanatory Variables:",items)
@@ -228,7 +237,36 @@ shinyServer(
                                 p = ezplot::scale_axis(p, "x", scale=input$xscale)
                                 
                         }else if (input$plot_type2 == "Mosaic plot"){
-                                #Mosaic
+                                x1 = filedata()[,input$xvar]
+                                x2 = filedata()[,input$yvar]
+                          
+                                tbl = prop.table(table(x1,x2),1)*100
+                                x1_mar = as.numeric(prop.table(table(x1))*100)
+                                df = as.data.frame(cbind(tbl,x1_mar))
+                          
+                                df$xmax = cumsum(df$x1_mar)
+                                df$xmin = df$xmax - df$x1_mar
+                                df$x1_mar = NULL
+                                df$IDrow=rownames(df)
+                          
+                                dfm = melt(df, id = c("IDrow", "xmin", "xmax"))
+                                dfm1 = ddply(dfm, .(IDrow), transform, ymax = cumsum(value))
+                                dfm1 = ddply(dfm1, .(IDrow), transform, ymin = ymax - value)
+                                dfm1$xtext = with(dfm1, xmin + (xmax - xmin)/2)
+                                dfm1$ytext = with(dfm1, ymin + (ymax - ymin)/2)
+                          
+                                p = ggplot(dfm1, aes(ymin = ymin, ymax = ymax,
+                                               xmin = xmin, xmax = xmax, fill = variable))
+                                p1 = p + geom_rect(colour = I("grey"))
+                                p2 = p1 + geom_text(aes(x = xtext, y = ytext,
+                                                  label = paste(round(value,digits=0), "%", sep = "")), 
+                                                  size = 3.5)
+                                p3 = p2 + geom_text(aes(x = xtext, y = 103,label = IDrow), 
+                                                    size = 4)
+                                p4 = p3 + theme_bw() + labs(x = input$xvar, 
+                                                            y = input$yvar,
+                                                            fill = NULL)
+                          
                         }
                 }
                 
