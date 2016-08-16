@@ -4,7 +4,7 @@ upload_input = function(id) {
         ## input file is text format
         fileInput(ns("file"), "Select a CSV, TXT or RDS file",
                   accept=c('text/comma-separated-values,text/plain',
-                           'text/csv', '.csv', '.txt', "rds")),
+                           'text/csv', '.csv', '.txt', ".rds")),
         p("If using RDS file, ignore configurations below entirely."),
         radioButtons(ns('sep'), 'Delimiter', 
                      choices = c(Comma=',', Semicolon=';', Tab='\t'), 
