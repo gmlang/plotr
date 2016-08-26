@@ -15,7 +15,8 @@ shinyUI(navbarPage("PlotR",
                 tabPanel("Univariate Analysis: Continuous Variable",
                          sidebarLayout(
                                  sidebarPanel(
-                                         choose_var_ui("varname_con")
+                                         choose_var_ui("varname_con"),
+                                         choose_transformation_ui("var_trans")
                                  ),
                                  mainPanel(
                                          plot_hist_ui("histogram"),

@@ -5,14 +5,6 @@ library(shiny)
 library(dplyr)
 library(tidyr)
 
-# load modules and helpers
-modules_path = "R/modules"
-helper_path  = "R/helper"
-for (fname in list.files(modules_path)) 
-        source(file.path(modules_path, fname))
-for (fname in list.files(helper_path))
-        source(file.path(helper_path, fname))
-
 server = function(input, output) {
         # implement data uploading
         datafile = callModule(upload, "datafile") # returns a reactive expression
@@ -49,15 +41,22 @@ server = function(input, output) {
         pick_var_con = callModule(choose_var, "varname_con",
                                   dat=datafile()[varnames()$con])
 
+        # implement variable transformation selection
+        pick_trans = callModule(choose_transformation, "var_trans")
+
         # implement histogram
-        callModule(plot_hist, "histogram", dat=datafile()[varnames()$con],
-                   varname=pick_var_con)
+        callModule(plot_hist, "histogram", dat=datafile()[varnames()$con], 
+                   varname=pick_var_con, trans_x=pick_trans)
         # note: pass in pick_var without () because varname is defined to take 
         #       a reactive expression instead of the value it returns
         
         # implement summary stats 
         output$summary = renderPrint({
-                summary(datafile()[[pick_var_con()]])
+                x = datafile()[[pick_var_con()]]
+                if (pick_trans() == "none") return(summary(x))
+                if (pick_trans() == "log") return(summary(log(x)))
+                if (pick_trans() == "log1p") return(summary(log(x+1)))
+                if (pick_trans() == "log10") return(summary(log10(x)))
         })
         
         ## END Univariate Analysis: Continuous Variable  ##

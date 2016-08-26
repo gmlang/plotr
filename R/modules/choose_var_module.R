@@ -5,6 +5,8 @@ choose_var_ui = function(id) {
 
 choose_var = function(input, output, session, dat) {
         # Returns the name of the variable that user selected
+        #
+        # dat: a data frame
         
         output$controls = renderUI({
                 ns = session$ns

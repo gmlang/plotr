@@ -9,21 +9,35 @@ plot_hist_ui = function(id) {
         )
 }
 
-plot_hist = function(input, output, session, dat, varname) {
+plot_hist = function(input, output, session, dat, varname, trans_x) {
         # Plots a histogram of an user-selected variable
         #
         # dat: a data frame
         # varname: a reactive expression when called will return the name of
         #       the variable selected by user. Note we need to use varname()
         #       as that will call it. 
+        # trans_x:
         
         output$hist = renderPlot({
-                ggplot2::ggplot(dat, ggplot2::aes_string(x = varname())) + 
+                p = ggplot2::ggplot(dat, ggplot2::aes_string(x = varname())) + 
                 # note: must call varname() with () as it's a reactive function
                         ggplot2::labs(x = varname()) + ggplot2::theme_bw() + 
                         ggplot2::geom_histogram(fill=blue, alpha=.8, 
                                                 bins=input$bins, 
                                                 position="identity")
+                
+                # apply comma to y-axis
+                p = scale_axis(p, "y", scale = "comma")
+                
+                # apply transformation to x-axis
+                p = switch(trans_x(),
+                           none = p,
+                           log = scale_axis(p, "x", scale = "log"),
+                           log1p = scale_axis(p, "x", scale = "log1p"),
+                           log10 = scale_axis(p, "x", scale = "log10"))
+                
+                # return
+                p
         })
 }
 
