@@ -1,10 +1,3 @@
-library(shiny)
-
-# load modules
-modules_path = "R/modules"
-for (fname in list.files(modules_path))
-        source(file.path(modules_path, fname))
-
 # UI
 shinyUI(navbarPage("PlotR",
                 tabPanel("Upload Data", 
@@ -19,19 +12,30 @@ shinyUI(navbarPage("PlotR",
                          )
                 ),
         
-                tabPanel("One Variable",
+                tabPanel("Univariate Analysis: Continuous Variable",
                          sidebarLayout(
                                  sidebarPanel(
-                                         choose_var_ui("varname"),
-                                         plot_hist_ui("bin_num")
+                                         choose_var_ui("varname_con")
                                  ),
                                  mainPanel(
-                                         verbatimTextOutput("summary"),
-                                         plotOutput("hist")
+                                         plot_hist_ui("histogram"),
+                                         verbatimTextOutput("summary")
                                  )
                          )
                 ),
-        
+
+                tabPanel("Univariate Analysis: Categorical Variable",
+                         sidebarLayout(
+                                 sidebarPanel(
+                                         choose_var_ui("varname_cat")
+                                 ),
+                                 mainPanel(
+                                         plot_barchart_ui("barchart"),
+                                         verbatimTextOutput("tbl_freq_pct")
+                                 )
+                         )
+                ),
+                
                 tabPanel("Multiple Variables",
                          sidebarLayout(
                                  sidebarPanel(

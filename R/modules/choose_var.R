@@ -4,6 +4,8 @@ choose_var_ui = function(id) {
 }
 
 choose_var = function(input, output, session, dat) {
+        # Returns the name of the variable that user selected
+        
         output$controls = renderUI({
                 ns = session$ns
                 selectInput(ns("var"), "Select a variable", names(dat))
@@ -11,6 +13,5 @@ choose_var = function(input, output, session, dat) {
         
         reactive({
                 req(input$var)
-                list(varname = input$var, vec = dat[[input$var]])
         })
 }

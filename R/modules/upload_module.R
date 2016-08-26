@@ -14,6 +14,8 @@ upload_ui = function(id) {
 }
 
 upload = function(input, output, session, ...) {
+        # Returns user-uploaded data as a data frame
+        
         user_file = reactive({
                 # if no file is selected, don't do anything
                 req(input$file)
