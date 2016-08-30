@@ -20,7 +20,8 @@ shinyUI(navbarPage("PlotR",
                                  ),
                                  mainPanel(
                                          plot_hist_ui("histogram"),
-                                         verbatimTextOutput("summary")
+                                         verbatimTextOutput("summary"),
+                                         plot_qqnorm_ui("qqplot")
                                  )
                          )
                 ),

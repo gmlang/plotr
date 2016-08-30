@@ -8,7 +8,7 @@ pick_trans = callModule(choose_transformation, "var_trans")
 
 # implement histogram
 callModule(plot_hist, "histogram", dat=datafile()[varnames()$con], 
-           varname=pick_var_con, trans_x=pick_trans)
+           xvar=pick_var_con, trans_x=pick_trans)
 # note: pass in pick_var without () because varname is defined to take 
 #       a reactive expression instead of the value it returns
 
@@ -21,4 +21,8 @@ output$summary = renderPrint({
         if (pick_trans() == "log10") return(summary(log10(x)))
 })
 
+# implement qqplot
+callModule(plot_qqnorm, "qqplot", dat=datafile()[varnames()$con], 
+           varname=pick_var_con, trans_x=pick_trans)
+        
 ## END Univariate Analysis: Continuous Variable  ##
