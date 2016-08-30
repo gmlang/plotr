@@ -14,7 +14,8 @@ upload_ui = function(id) {
 }
 
 upload = function(input, output, session, ...) {
-        # Returns user-uploaded data as a data frame
+        # Returns a reactive expression that will return user-uploaded data as a 
+        #       data frame when called.
         
         user_file = reactive({
                 # if no file is selected, don't do anything
@@ -24,9 +25,9 @@ upload = function(input, output, session, ...) {
         # parse user uploaded data into a data frame
         reactive({
                 if (grepl(".csv$|.txt$", user_file()$name))
-                        dat = read.csv(user_file()$datapath, sep=input$sep,
-                                       header=input$heading, 
-                                       na.strings=input$na_string,
+                        dat = read.csv(user_file()$datapath, sep = input$sep,
+                                       header = input$heading, 
+                                       na.strings = input$na_string,
                                        stringsAsFactors = F, ...)
                 if (grepl(".rds$", user_file()$name))
                         dat = readRDS(user_file()$datapath)

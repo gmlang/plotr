@@ -1,5 +1,4 @@
-# define colors
-blue = "#0072B2"
+blue = "#0072B2" # color-blind friendly blue
 
 plot_hist_ui = function(id) {
         ns = NS(id)
@@ -14,10 +13,10 @@ plot_hist = function(input, output, session, dat, varname, trans_x) {
         #
         # dat: a data frame
         # varname: a reactive expression when called will return the name of
-        #       the variable selected by user. Note we need to use varname()
-        #       as that will call it. 
-        # trans_x:
-        
+        #       the variable selected by user. Need to use varname() to call it.
+        # trans_x: a reactive expression when called will return the name of 
+        #       the variable transformation selected by user. Need to use 
+        #       trans_x() to call it.
         output$hist = renderPlot({
                 p = ggplot2::ggplot(dat, ggplot2::aes_string(x = varname())) + 
                 # note: must call varname() with () as it's a reactive function

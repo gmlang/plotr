@@ -12,7 +12,7 @@ shinyUI(navbarPage("PlotR",
                          )
                 ),
         
-                tabPanel("Univariate Analysis: Continuous Variable",
+                tabPanel("Single Continuous Variable",
                          sidebarLayout(
                                  sidebarPanel(
                                          choose_var_ui("varname_con"),
@@ -25,7 +25,7 @@ shinyUI(navbarPage("PlotR",
                          )
                 ),
 
-                tabPanel("Univariate Analysis: Categorical Variable",
+                tabPanel("Single Categorical Variable",
                          sidebarLayout(
                                  sidebarPanel(
                                          choose_var_ui("varname_cat")

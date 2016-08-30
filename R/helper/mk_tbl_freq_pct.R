@@ -2,7 +2,7 @@ mk_tbl_freq_pct = function(dat, varname) {
         # Returns a data frame of 3 columns: category, count, and percent.
         #
         # dat: a data frame 
-        # varname: string, name of a variable of dat
+        # varname: string, name of a variable on dat
 
         # calc freq        
         tbl = table(dat[[varname]])
