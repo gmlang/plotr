@@ -38,10 +38,13 @@ shinyUI(navbarPage("PlotR",
                          )
                 ),
                 
-                tabPanel("Multiple Variables",
+                tabPanel("Continuous vs. Continuous Variables",
                          sidebarLayout(
                                  sidebarPanel(
-                                         
+                                         choose_var_ui("con_xvar"),
+                                         choose_var_ui("con_yvar"),
+                                         choose_transformation_ui("trans_xvar"),
+                                         choose_transformation_ui("trans_yvar")
                                  ),
                                  mainPanel(
                                          

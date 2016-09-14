@@ -9,14 +9,16 @@ plot_hist_ui = function(id) {
 plot_hist = function(input, output, session, dat, xvar, trans_x) {
         # Plots a histogram of an user-selected variable
         #
-        # dat: a data frame
+        # dat: a reactive expression when called will return a data frame that
+        #       contains the variable selected by user. Need to use dat() to call it.
         # xvar: a reactive expression when called will return the name of
         #       the variable selected by user. Need to use xvar() to call it.
         # trans_x: a reactive expression when called will return the name of 
         #       the variable transformation selected by user. Need to use 
         #       trans_x() to call it.
         output$hist = renderPlot({
-                plt_hist(dat, xvar(), trans_x(), input$bins) # plt_hist defined in R/helper
+                if (req(xvar() %in% names(dat())))
+                        plt_hist(dat(), xvar(), trans_x(), input$bins) # plt_hist defined in R/helper
         })
 }
 

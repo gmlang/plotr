@@ -1,14 +1,14 @@
-plt_barchart = function(dat, xvar) {
+plt_barchart = function(dat) {
         # Plots a bar chart.
         #
-        # dat: a data frame that contains xvar and a variable named "count"
-        # xvar: the name of the variable on the x-axis, has discrete levels
+        # dat: data frame with a xvar and vars named "count" and "percent"
         
         # define color-blind friendly blue
         blue = "#0072B2" 
         
         # initialize var
         yvar = "count" # fixed, same for all input data
+        xvar = names(dat)[!grepl("count|percent", names(dat))]
         
         # draw barplot
         ggplot2::ggplot(dat, ggplot2::aes_string(x=xvar, y=yvar)) +
