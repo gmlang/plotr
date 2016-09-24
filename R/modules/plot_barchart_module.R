@@ -1,6 +1,6 @@
 plot_barchart_ui = function(id) {
         ns = NS(id)
-        plotOutput(ns("barchart"))
+        plotOutput(ns("barchart"), height="600", width="600")
 } 
 
 plot_barchart = function(input, output, session, dat) {

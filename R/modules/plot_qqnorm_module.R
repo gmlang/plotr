@@ -1,6 +1,6 @@
 plot_qqnorm_ui = function(id) {
         ns = NS(id)
-        plotOutput(ns("qqnorm"))
+        plotOutput(ns("qqnorm"), height="600", width="600")
 }
 
 plot_qqnorm = function(input, output, session, dat, varname, trans_x) {

@@ -1,8 +1,8 @@
 plot_hist_ui = function(id) {
         ns = NS(id)
         tagList(
-                plotOutput(ns("hist")),
-                sliderInput(ns("bins"), "Number of bins", 1, 50, 20)
+                sliderInput(ns("bins"), "Number of bins", 1, 50, 20),
+                plotOutput(ns("hist"), height="600", width="600")
         )
 }
 

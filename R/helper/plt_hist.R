@@ -11,9 +11,10 @@ plt_hist = function(dat, xvar, trans_x, bins) {
         
         # plot
         p = ggplot2::ggplot(dat, ggplot2::aes_string(x = xvar)) + 
-                ggplot2::labs(x = xvar) + ggplot2::theme_bw() + 
+                ggplot2::labs(x = xvar, title="Histogram") + ggplot2::theme_bw() + 
                 ggplot2::geom_histogram(fill=blue, alpha=.8, bins=bins, 
                                         position="identity")
+        
         # apply comma style to y-axis
         p = scale_axis(p, "y", scale = "comma")
         
