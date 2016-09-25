@@ -46,10 +46,10 @@ plt_mosaic = function(dat, xvar, yvar, palette="Blues"){
                 ggplot2::geom_text(data=ylabData, vjust="top", angle=90,
                                    ggplot2::aes(label = as.character(yvar), 
                                                 y = ylabCenter, x = -0.05)) +
-                xlab("") + ggplot2::scale_x_discrete(labels=NULL) +
-                ylab("") + ggplot2::scale_y_discrete(labels=NULL) +
+                ggplot2::xlab("") + ggplot2::scale_x_discrete(labels=NULL) +
+                ggplot2::ylab("") + ggplot2::scale_y_discrete(labels=NULL) +
                 ggplot2::theme_minimal() +
-                ggplot2::theme(plot.margin=margin(rep(20,4)))
+                ggplot2::theme(plot.margin=ggplot2::margin(rep(20,4)))
 
 }
 
