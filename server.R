@@ -1,6 +1,4 @@
 library(shiny)
-library(dplyr)
-library(tidyr)
 
 server = function(input, output) {
         # implement data uploading
