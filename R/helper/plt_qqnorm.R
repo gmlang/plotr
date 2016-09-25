@@ -18,7 +18,8 @@ plt_qqnorm = function(vec) {
         
         # plot
         ggplot2::ggplot(data.frame(ids = vec), ggplot2::aes(sample = ids)) + 
-                ggplot2::stat_qq() + ggplot2::ggtitle("Q-Q Plot") + ggplot2::theme_bw() + 
+                ggplot2::stat_qq() + ggplot2::ggtitle("Q-Q Plot") + 
+                ggplot2::theme_minimal() + 
                 ggplot2::geom_abline(slope = slope, intercept = intercept,
                                      color = blue, linetype = "dashed", size=1)
 }

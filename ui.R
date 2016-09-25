@@ -13,7 +13,7 @@ navbarPage("PlotR", theme = "darkly1.css",
                             )
                     ),
            
-           tabPanel("Single Continuous Variable",
+           tabPanel("Continuous",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("varname_con"),
@@ -31,7 +31,7 @@ navbarPage("PlotR", theme = "darkly1.css",
                             )
                     ),
            
-           tabPanel("Single Categorical Variable",
+           tabPanel("Categorical",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("varname_cat")
@@ -48,7 +48,7 @@ navbarPage("PlotR", theme = "darkly1.css",
                             )
                     ),
            
-           tabPanel("Continuous vs. Continuous Variables",
+           tabPanel("Continuous vs. Continuous",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("con_xvar"),
@@ -63,7 +63,7 @@ navbarPage("PlotR", theme = "darkly1.css",
                             )
                     ),
 
-           tabPanel("Continuous vs. Categorical Variables",
+           tabPanel("Continuous vs. Categorical",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("cat_xvar"),
@@ -74,6 +74,19 @@ navbarPage("PlotR", theme = "darkly1.css",
                                     plot_boxplot_ui("boxplot")
                                     )
                             )
+                    ),
+
+           tabPanel("Categorical vs. Categorical",
+                    sidebarLayout(
+                            sidebarPanel(
+                                    choose_var_ui("cat_xvar2"),
+                                    choose_var_ui("cat_yvar2")
+                                    ),
+                            mainPanel(
+                                    plot_mosaic_ui("mosaic")
+                                    )
+                            )
                     )
+           
            
            )

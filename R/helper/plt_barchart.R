@@ -13,7 +13,7 @@ plt_barchart = function(dat) {
         # draw barplot
         p = ggplot2::ggplot(dat, ggplot2::aes_string(x=xvar, y=yvar)) +
                 ggplot2::geom_bar(stat = "identity", fill = blue) +
-                ggplot2::labs(x = xvar, y = yvar) + ggplot2::theme_bw() 
+                ggplot2::labs(x = xvar, y = yvar) + ggplot2::theme_minimal()
         
         # apply comma style to y-axis
         scale_axis(p, "y", scale = "comma")

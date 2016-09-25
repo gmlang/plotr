@@ -25,7 +25,7 @@ plt_scatter = function(dat, xvar, yvar, fillby="None", trans_x, trans_y) {
         # p = p + ggplot2::geom_smooth(method=lm, se=F, size=1) 
         
         # apply theme
-        p = p + ggplot2::theme_bw() + ggplot2::theme(legend.position="bottom")
+        p = p + ggplot2::theme_minimal() + ggplot2::theme(legend.position="bottom")
         
         # apply comma style to both axes
         p = scale_axis(p, "y", scale = "comma")
