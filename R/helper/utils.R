@@ -1,0 +1,1 @@
+format_as_pct = function(x, digits=4) paste0(round(x, digits) * 100, "%")
