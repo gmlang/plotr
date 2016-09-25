@@ -42,9 +42,9 @@ plt_scatter = function(dat, xvar, yvar, fillby="None", trans_x, trans_y) {
         # apply transformation to y-axis
         p = switch(trans_y,
                    none = p,
-                   log = scale_axis(p, "x", scale = "log"),
-                   log1p = scale_axis(p, "x", scale = "log1p"),
-                   log10 = scale_axis(p, "x", scale = "log10")
+                   log = scale_axis(p, "y", scale = "log"),
+                   log1p = scale_axis(p, "y", scale = "log1p"),
+                   log10 = scale_axis(p, "y", scale = "log10")
         )
         
         # return 

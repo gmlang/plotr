@@ -61,7 +61,19 @@ navbarPage("PlotR", theme = "darkly1.css",
                                     plot_scatter_ui("scatterplot")
                                     )
                             )
+                    ),
+
+           tabPanel("Continuous vs. Categorical Variables",
+                    sidebarLayout(
+                            sidebarPanel(
+                                    choose_var_ui("cat_xvar"),
+                                    choose_var_ui("con_yvar2"),
+                                    choose_transformation_ui("trans_yvar2")
+                                    ),
+                            mainPanel(
+                                    plot_boxplot_ui("boxplot")
+                                    )
+                            )
                     )
-           
            
            )
