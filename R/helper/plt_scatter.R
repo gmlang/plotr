@@ -13,19 +13,23 @@ plt_scatter = function(dat, xvar, yvar, fillby="None", trans_x, trans_y) {
         # define point size and transparency
         pt_alpha = 0.7
         pt_size = 2
-        
+
         # plot scatter color by a third variable or blue
-        if (fillby == "None")
+        if (fillby == "None") {
                 p = ggplot2::ggplot(dat, ggplot2::aes_string(xvar, yvar)) + 
                         ggplot2::geom_jitter(color=blue, alpha=pt_alpha, size=pt_size)
-        else p = ggplot2::ggplot(dat, ggplot2::aes_string(xvar, yvar, color=fillby)) + 
+        } else {
+                # make sure fillby is factor
+                dat[[fillby]] = factor(dat[[fillby]])
+                p = ggplot2::ggplot(dat, ggplot2::aes_string(xvar, yvar, color=fillby)) + 
                         ggplot2::geom_jitter(alpha=pt_alpha, size=pt_size)
+        }
 
         # # add line
         # p = p + ggplot2::geom_smooth(method=lm, se=F, size=1) 
         
         # apply theme
-        p = p + ggplot2::theme_bw() + ggplot2::theme(legend.position="bottom")
+        p = p + ggplot2::theme_minimal() + ggplot2::theme(legend.position="bottom")
         
         # apply comma style to both axes
         p = scale_axis(p, "y", scale = "comma")

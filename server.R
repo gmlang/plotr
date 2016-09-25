@@ -1,6 +1,4 @@
 library(shiny)
-library(dplyr)
-library(tidyr)
 
 server = function(input, output) {
         # implement data uploading
@@ -35,6 +33,7 @@ server = function(input, output) {
         source(file.path(server_path, "plot-con-vs-cat.R"), local=T)
         
         # plot 2 variables - categorical vs categorical
+        source(file.path(server_path, "plot-cat-vs-cat.R"), local=T)
 }
 
 shinyServer(server)

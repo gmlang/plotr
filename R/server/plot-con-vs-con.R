@@ -2,9 +2,9 @@
 
 # implement variable selection
 pick_con_xvar = callModule(choose_var, "con_xvar", head = "Select x variable", 
-                           vars = varnames_con)
+                           vars = varnames_con, init_var_idx = 1)
 pick_con_yvar = callModule(choose_var, "con_yvar", head = "Select y variable", 
-                           vars = varnames_con)
+                           vars = varnames_con, init_var_idx = 2)
 get_fillby_var = reactive({ c("None", varnames_cat()) })
 pick_cat_var = callModule(choose_var, "fillby_var", head = "Select color-by variable",
                           vars = get_fillby_var)

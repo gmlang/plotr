@@ -11,7 +11,7 @@ plt_boxplot = function(dat, xvar, yvar, trans_y) {
         
         # make plot
         p = ggplot2::ggplot(dat, ggplot2::aes_string(xvar, yvar, group=xvar)) +
-                ggplot2::geom_boxplot(fill = blue) + ggplot2::theme_bw() + 
+                ggplot2::geom_boxplot(fill = blue) + ggplot2::theme_minimal() + 
                 ggplot2::guides(fill = FALSE)
         
         # apply comma style to y-axis
