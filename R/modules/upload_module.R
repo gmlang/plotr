@@ -1,10 +1,12 @@
+# browsers won't allow user to upload .rds file 
+# therefore, only implement .csv or .txt upload
+
 upload_ui = function(id) {
         ns = NS(id)
         tagList(
                 fileInput(ns("file"), "Select a CSV, TXT or RDS file",
                           accept=c('text/comma-separated-values,text/plain',
-                                   'text/csv', '.csv', '.txt', ".rds")),
-                p("If using RDS file, ignore configurations below entirely."),
+                                   'text/csv', '.csv', '.txt')),
                 radioButtons(ns("sep"), "Delimiter", 
                              choices = c(Comma=',', Semicolon=';', Tab='\t'),
                              selected = ','),
@@ -24,13 +26,8 @@ upload = function(input, output, session, ...) {
         
         # parse user uploaded data into a data frame
         reactive({
-                if (grepl(".csv$|.txt$", user_file()$name))
-                        dat = read.csv(user_file()$datapath, sep = input$sep,
-                                       header = input$heading, 
-                                       na.strings = input$na_string,
-                                       stringsAsFactors = F, ...)
-                if (grepl(".rds$", user_file()$name))
-                        dat = readRDS(user_file()$datapath)
-                dat
+                read.table(user_file()$datapath, sep = input$sep,
+                           header = input$heading, na.strings = input$na_string,
+                           stringsAsFactors = F, ...)
         })
 }
