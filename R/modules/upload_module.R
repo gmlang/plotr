@@ -4,7 +4,7 @@
 upload_ui = function(id) {
         ns = NS(id)
         tagList(
-                fileInput(ns("file"), "Select a CSV, TXT or RDS file",
+                fileInput(ns("file"), "Select a CSV or TXT file",
                           accept=c('text/comma-separated-values,text/plain',
                                    'text/csv', '.csv', '.txt')),
                 radioButtons(ns("sep"), "Delimiter", 
