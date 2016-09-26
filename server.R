@@ -1,7 +1,3 @@
-library(shiny)
-library(tidyr)
-library(dplyr)
-
 server = function(input, output) {
         # implement data uploading
         datafile = callModule(upload, "datafile") 

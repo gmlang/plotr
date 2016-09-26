@@ -1,3 +1,7 @@
+library(shiny)
+library(tidyr)
+library(dplyr)
+
 # change max upload file size to 30 MB, default is 5 MB
 options(shiny.maxRequestSize = 30*1024^2, shiny.reactlog = T)
 
