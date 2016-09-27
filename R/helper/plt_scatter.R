@@ -1,4 +1,4 @@
-plt_scatter = function(dat, xvar, yvar, fillby="None", trans_x, trans_y) {
+plt_scatter = function(dat, xvar, yvar, fillby="None", trans_x="none", trans_y="none") {
         # Plots a scatter plot.
         #
         # dat: a data frame that contains xvar and yvar
