@@ -2,8 +2,8 @@ name: plotr
 account: cabaceo
 server: shinyapps.io
 appId: 127650
-bundleId: 568826
+bundleId: 571030
 url: https://cabaceo.shinyapps.io/plotr/
-when: 1474909249.14069
+when: 1475075483.09075
 asMultiple: FALSE
 asStatic: FALSE
