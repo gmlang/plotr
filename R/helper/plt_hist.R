@@ -1,4 +1,4 @@
-plt_hist = function(dat, xvar, trans_x, bins) {
+plt_hist = function(dat, xvar, trans_x="none", bins) {
         # Plots a histogram
         #
         # dat: a data frame that contains xvar

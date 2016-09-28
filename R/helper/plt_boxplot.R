@@ -1,4 +1,4 @@
-plt_boxplot = function(dat, xvar, yvar, trans_y) {
+plt_boxplot = function(dat, xvar, yvar, trans_y="none") {
         # Plots a boxplot.
         #
         # dat: a data frame that contains xvar and yvar
