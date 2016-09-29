@@ -5144,7 +5144,7 @@ a.thumbnail.active {
   line-height: 21px;
   color: #ffffff;
   text-align: center;
-  background-color: #375a7f;
+  background-color: #00bc8c;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -7043,4 +7043,131 @@ a.list-group-item-danger.active:focus {
 }
 .panel-default > .panel-heading {
   background-color: #464545;
+}
+
+
+
+
+/* shiny progress bar */
+/* Make sure the filename doesn't extend past the bounds of the container */
+.shiny-input-container input[type=file] {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.shiny-progress-container {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 2000;
+}
+
+.shiny-progress .progress {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    /* The default height is only 1px which is find to be TINY */
+    height: 8px;
+    margin: 0px;
+}
+
+.shiny-progress .bar {
+    background-color: #00bc8c;
+    .opacity = 0.8;
+    transition-duration: 250ms;
+}
+
+.shiny-progress .progress-text {
+    position: absolute;
+    right: 30px;
+    height: 30px;
+    width: 490px;
+    background-color: #00bc8c;
+    padding-top: 2px;
+    padding-right: 3px;
+    padding-bottom: 2px;
+    padding-left: 3px;
+    opacity: 0.95;
+    /* I also wanted to round off the corners of the text box */
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.progress-text {
+    /* Copy the below to vertically center the progress bar text box in the shiny dashboard header */
+    /* !important is crucial here otherwise it gets overridden by the dreaded element.style */
+    top: 15px !important;
+    color: #FFFFFF !important;
+    text-align: center;
+}
+
+/* Bold Initial part of message */
+.shiny-progress .progress-text .progress-message {
+    padding-top: 0px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Message detail */
+.shiny-progress .progress-text .progress-detail {
+    padding-top: 0px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    font-size: 17px;
+}
+
+
+
+input[type=radio],
+input[type=checkbox]{
+  /* Hide original images */
+  visibility: hidden;
+  position: absolute;
+}
+input[type=radio] + span:before,
+input[type=checkbox] + span:before{
+  height:14px;
+  width:14px;
+  margin-right: 8px;
+  margin-left: -20px;
+  content: " ";
+  display:inline-block;
+  vertical-align: baseline;
+  border:1px solid #777;
+}
+input[type=radio]:checked + span:before,
+input[type=checkbox]:checked + span:before{
+  background:#00a379;
+}
+
+/* CUSTOM RADIO AND CHECKBOX STYLES */
+input[type=radio] + span:before{
+  border-radius:50%;
+}
+input[type=checkbox] + span:before{
+  border-radius:2px;
+}
+
+/* button hover color*/
+button[type=button]:hover{
+  color: #00a379;
+}
+
+/* download button */
+#navbar a:hover{
+  color: #00a379;    
+}
+
+/* CUSTOM LOGO STYLES */
+#logo {
+  height: 100px;
+  float: left;
+  margin-left: -310px;
+  margin-top: -40px;
+  margin-right: 55px;
 }
