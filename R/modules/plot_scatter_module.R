@@ -21,7 +21,8 @@ plot_scatter = function(input, output, session, dat,
         #       the yvar transformation selected by user. Use trans_y() to call it.
         output$scatterplot = renderPlot({
                 # plt_scatter is defined in R/helper
-                plt_scatter(dat(), xvar(), yvar(), fillby(), trans_x(), trans_y()) 
+                web_display(plt_scatter(dat(), xvar(), yvar(), fillby(), 
+                                        trans_x(), trans_y()))
         })
         
 }

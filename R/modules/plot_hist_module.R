@@ -17,8 +17,8 @@ plot_hist = function(input, output, session, dat, xvar, trans_x) {
         #       the variable transformation selected by user. Need to use 
         #       trans_x() to call it.
         output$hist = renderPlot({
-                if (req(xvar() %in% names(dat())))
-                        plt_hist(dat(), xvar(), trans_x(), input$bins) # plt_hist defined in R/helper
+                if (req(xvar() %in% names(dat()))) # plt_hist defined in R/helper
+                        web_display(plt_hist(dat(), xvar(), trans_x(), input$bins)) 
         })
 }
 

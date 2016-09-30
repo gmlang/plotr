@@ -17,8 +17,8 @@ pick_trans_yvar = callModule(choose_transformation, "trans_yvar",
                              head = "Select a transformation for y")
 
 # implement scatter plot
-callModule(plot_scatter, "scatterplot", dat=datafile,
-           xvar=pick_con_xvar, yvar=pick_con_yvar, fillby = pick_cat_var,
+callModule(plot_scatter, "scatterplot", dat=datafile, xvar=pick_con_xvar, 
+           yvar=pick_con_yvar, fillby = pick_cat_var, 
            trans_x=pick_trans_xvar, trans_y=pick_trans_yvar)
 
 

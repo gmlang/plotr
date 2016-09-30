@@ -14,6 +14,6 @@ plot_mosaic = function(input, output, session, dat, xvar, yvar) {
         #       the y variable selected by user. Use yvar() to call it.
         output$mosaic = renderPlot({
                 # plt_mosaic is defined in R/helper
-                plt_mosaic(dat(), xvar(), yvar())
+                web_display(plt_mosaic(dat(), xvar(), yvar()))
         })
 }

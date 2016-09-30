@@ -15,12 +15,13 @@ plot_qqnorm = function(input, output, session, dat, varname, trans_x) {
         #       trans_x() to call it.
         output$qqnorm = renderPlot({
                 if (req(varname() %in% names(dat())))
-                        switch(trans_x(),
-                               none = plt_qqnorm(dat()[[varname()]]), 
-                               log = plt_qqnorm(log(dat()[[varname()]])),
-                               log1p = plt_qqnorm(log(dat()[[varname()]]+1)),
-                               log10 = plt_qqnorm(log10(dat()[[varname()]]))
-                               ) # plt_qqnorm is defined in R/helper
+                        web_display(
+                                switch(trans_x(),
+                                       none = plt_qqnorm(dat()[[varname()]]), 
+                                       log = plt_qqnorm(log(dat()[[varname()]])),
+                                       log1p = plt_qqnorm(log(dat()[[varname()]]+1)),
+                                       log10 = plt_qqnorm(log10(dat()[[varname()]]))
+                               )) # plt_qqnorm is defined in R/helper
         })
 }
 
