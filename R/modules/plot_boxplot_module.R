@@ -16,7 +16,7 @@ plot_boxplot = function(input, output, session, dat, xvar, yvar, trans_y) {
         #       the yvar transformation selected by user. Use trans_y() to call it.
         output$boxplot = renderPlot({
                 # plt_boxplot is defined in R/helper
-                plt_boxplot(dat(), xvar(), yvar(), trans_y()) 
+                web_display(plt_boxplot(dat(), xvar(), yvar(), trans_y()))
         })
         
 }

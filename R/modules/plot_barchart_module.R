@@ -10,7 +10,7 @@ plot_barchart = function(input, output, session, dat) {
         #       call it using dat(). The returned data frame must contain a variable 
         #       named "count" and the variable name returned by xvar().
         output$barchart = renderPlot({
-                plt_barchart(dat()) # plt_barchart is defined in R/helper
+                web_display(plt_barchart(dat())) # plt_barchart is defined in R/helper
         })
 }
 

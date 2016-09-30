@@ -7,8 +7,8 @@ pick_var_con = callModule(choose_var, "varname_con", vars=varnames_con)
 pick_trans = callModule(choose_transformation, "var_trans")
 
 # implement histogram
-callModule(plot_hist, "histogram", dat=datafile, 
-           xvar=pick_var_con, trans_x=pick_trans)
+callModule(plot_hist, "histogram", dat=datafile, xvar=pick_var_con, 
+           trans_x=pick_trans)
 
 
 # implement summary stats 
@@ -23,8 +23,8 @@ output$summary = renderPrint({
 })
 
 # implement qqplot
-callModule(plot_qqnorm, "qqplot", dat=datafile, 
-           varname=pick_var_con, trans_x=pick_trans)
+callModule(plot_qqnorm, "qqplot", dat=datafile, varname=pick_var_con, 
+           trans_x=pick_trans)
 
         
 ## END Univariate Analysis: Continuous Variable  ##
