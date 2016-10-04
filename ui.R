@@ -7,7 +7,12 @@ navbarPage(title=div(a(href="http://cabaceo.com",
            tabPanel("Upload Data", 
                     sidebarLayout(
                             sidebarPanel(
-                                    upload_ui("datafile")
+                                    upload_ui("datafile"),
+                                    
+                                    # insert google ads
+                                    tags$script(async="async", src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"),
+                                    includeHTML("www/google-ads-size-auto.html"),
+                                    tags$script("(adsbygoogle = window.adsbygoogle || []).push({});")
                                     ),
                             mainPanel(
                                     verbatimTextOutput("datastruct"),
