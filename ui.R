@@ -7,7 +7,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
            tabPanel("Upload Data", 
                     sidebarLayout(
                             sidebarPanel(
-                                    upload_ui("datafile")
+                                    upload_ui("datafile"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     verbatimTextOutput("datastruct"),
@@ -20,7 +24,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("varname_con"),
-                                    choose_transformation_ui("var_trans")
+                                    choose_transformation_ui("var_trans"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     fluidRow(column(5, 
@@ -37,7 +45,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
            tabPanel("Categorical",
                     sidebarLayout(
                             sidebarPanel(
-                                    choose_var_ui("varname_cat")
+                                    choose_var_ui("varname_cat"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     fluidRow(column(5, 
@@ -58,7 +70,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
                                     choose_var_ui("con_yvar"),
                                     choose_var_ui("fillby_var"),
                                     choose_transformation_ui("trans_xvar"),
-                                    choose_transformation_ui("trans_yvar")
+                                    choose_transformation_ui("trans_yvar"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     plot_scatter_ui("scatterplot")
@@ -71,7 +87,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
                             sidebarPanel(
                                     choose_var_ui("cat_xvar"),
                                     choose_var_ui("con_yvar2"),
-                                    choose_transformation_ui("trans_yvar2")
+                                    choose_transformation_ui("trans_yvar2"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     plot_boxplot_ui("boxplot")
@@ -83,7 +103,11 @@ navbarPage(title=div(a(href="http://cabaceo.com",
                     sidebarLayout(
                             sidebarPanel(
                                     choose_var_ui("cat_xvar2"),
-                                    choose_var_ui("cat_yvar2")
+                                    choose_var_ui("cat_yvar2"),
+                                    br(),
+                                    p("Made by", 
+                                      a("Cabaceo LLC", href="https://cabaceo.com", 
+                                        target="_blank"))
                                     ),
                             mainPanel(
                                     plot_mosaic_ui("mosaic")
