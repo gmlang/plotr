@@ -1,9 +1,11 @@
 # UI
-navbarPage(title=div(a(href="http://cabaceo.com",
-                       img(src="Logo_01.png", id = "logo")), "PlotR"),
+navbarPage(title=div(a(href="https://cabaceo.com",
+                       img(src="logo.png", id = "logo", align = "left",
+                           width=150, style = "margin:-40px 20px 2px 2px")), 
+                     "PlotR"),
            windowTitle = "PlotR",
            theme = "darkly2.css", 
-           
+
            tabPanel("Upload Data", 
                     sidebarLayout(
                             sidebarPanel(
